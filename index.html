@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Blab - Okul kahvecisi. En taze kahveler, sıcak atmosfer ve öğrenci dostu fiyatlarla sizleri bekliyoruz.">
+    <title>Blab | Okul Kahvecisi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Blab" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero">Ana Sayfa</a></li>
+                <li><a href="#menu">Menü</a></li>
+                <li><a href="#gallery">Galeri</a></li>
+                <li><a href="#about">Hakkımızda</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menüyü aç">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-actions">
+                <!-- Search -->
+                <div class="search-wrapper">
+                    <button class="nav-action-btn" id="searchBtn" aria-label="Ara">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.35-4.35" />
+                        </svg>
+                    </button>
+                    <div class="search-dropdown" id="searchDropdown">
+                        <input type="text" id="searchInput" placeholder="Ürün ara...">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                <!-- Theme Toggle -->
+                <button class="nav-action-btn" id="themeToggle" aria-label="Tema değiştir">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+                <!-- Language Toggle -->
+                <button class="nav-action-btn lang-btn" id="langToggle">
+                    TR
+                </button>
+                <!-- Favorites -->
+                <button class="nav-action-btn" id="favoritesBtn" aria-label="Favoriler">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                    <span class="fav-count" id="favCount">0</span>
+                </button>
+                <!-- User/Login -->
+                <button class="nav-action-btn user-btn" id="userBtn" aria-label="Giriş Yap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </button>
+                <!-- Cart -->
+                <button class="nav-action-btn cart-btn" id="cartBtn" aria-label="Sepet">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <span class="hero-badge">☕ Okul Kahveciniz</span>
+            <h1 class="hero-title">
+                <span class="title-line">Kahvenin</span>
+                <span class="title-line highlight">En Taze Hali</span>
+            </h1>
+            <p class="hero-description">
+                Okulun kalbinde, en kaliteli kahve deneyimini yaşamak için buradayız.
+                Sıcak atmosferimiz ve lezzetli içeceklerimizle molalarınızı keyifli kılıyoruz.
+            </p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">
+                    <span>Menüyü Keşfet</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="#about" class="btn btn-secondary">Bizi Tanıyın</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Günlük Kahve</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Çeşit İçecek</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">Mutlu Öğrenci</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Aşağı Kaydır</span>
+            <div class="scroll-icon">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loyalty Card Section -->
+    <section class="loyalty" id="loyalty">
+        <div class="container">
+            <div class="loyalty-card">
+                <div class="loyalty-header">
+                    <div class="loyalty-badge">🎁 KAMPANYA</div>
+                    <h3 class="loyalty-title">9 Kahve Al, 10. Bizden!</h3>
+                    <p class="loyalty-desc">Her kahve siparişinde bir damga kazan. 9 damga topla, 10. kahven bedava!</p>
+                </div>
+                <div class="loyalty-tracker">
+                    <div class="stamp" data-index="0"><span>☕</span></div>
+                    <div class="stamp" data-index="1"><span>☕</span></div>
+                    <div class="stamp" data-index="2"><span>☕</span></div>
+                    <div class="stamp" data-index="3"><span>☕</span></div>
+                    <div class="stamp" data-index="4"><span>☕</span></div>
+                    <div class="stamp" data-index="5"><span>☕</span></div>
+                    <div class="stamp" data-index="6"><span>☕</span></div>
+                    <div class="stamp" data-index="7"><span>☕</span></div>
+                    <div class="stamp" data-index="8"><span>☕</span></div>
+                    <div class="stamp free" data-index="9"><span>🎁</span></div>
+                </div>
+                <div class="loyalty-progress">
+                    <span id="stampCount">0</span> / 9 kahve toplandı - Hediye kazandın!
+                </div>
+                <div class="loyalty-info">
+                    <p>💡 Kahve siparişi verdiğinizde otomatik olarak damga kazanırsınız!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Menümüz</span>
+                <h2 class="section-title">Lezzetli Seçenekler</h2>
+                <p class="section-description">Özenle hazırlanan içeceklerimiz ve atıştırmalıklarımız</p>
+            </div>
+
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Tümü</button>
+                <button class="category-btn" data-category="coffee">Kahveler</button>
+                <button class="category-btn" data-category="cold">Soğuk İçecekler</button>
+                <button class="category-btn" data-category="food">Atıştırmalık</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                <!-- Coffee Items -->
+                <div class="menu-card" data-category="coffee">
+                    <div class="card-image">
+                        <div class="card-badge">Popüler</div>
+                        <button class="card-fav-btn" data-product="Espresso" aria-label="Favorilere ekle">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </button>
+                        <div class="card-placeholder coffee-1">☕</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Espresso</h3>
+                        <p class="card-description">Yoğun ve aromik tek shot espresso</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺80</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="coffee">
+                    <div class="card-image">
+                        <div class="card-badge bestseller">En Çok Satan</div>
+                        <div class="card-placeholder coffee-2">☕</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Latte</h3>
+                        <p class="card-description">Kremsi süt köpüğü ile espresso</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺145</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="coffee">
+                    <div class="card-image">
+                        <div class="card-placeholder coffee-3">☕</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cappuccino</h3>
+                        <p class="card-description">Kadifemsi köpük ile klasik lezzet</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺145</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="coffee">
+                    <div class="card-image">
+                        <div class="card-placeholder coffee-4">☕</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Americano</h3>
+                        <p class="card-description">Sıcak su ile seyreltilmiş espresso</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺115</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="coffee">
+                    <div class="card-image">
+                        <div class="card-placeholder coffee-5">☕</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Mocha</h3>
+                        <p class="card-description">Çikolata ile buluşan espresso</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺160</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="coffee">
+                    <div class="card-image">
+                        <div class="card-placeholder coffee-6">☕</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Türk Kahvesi</h3>
+                        <p class="card-description">Geleneksel Türk kahvesi</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺55</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cold Drinks -->
+                <div class="menu-card" data-category="cold">
+                    <div class="card-image">
+                        <div class="card-badge">Serinletici</div>
+                        <div class="card-placeholder cold-1">🧊</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Iced Latte</h3>
+                        <p class="card-description">Buzlu espresso ve soğuk süt</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺155</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="cold">
+                    <div class="card-image">
+                        <div class="card-placeholder cold-2">🧊</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Frappe</h3>
+                        <p class="card-description">Buzlu ve köpüklü kahve keyfi</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺165</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="cold">
+                    <div class="card-image">
+                        <div class="card-placeholder cold-3">🍹</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Limonata</h3>
+                        <p class="card-description">Ev yapımı taze limonata</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺85</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Items -->
+                <div class="menu-card" data-category="food">
+                    <div class="card-image">
+                        <div class="card-placeholder food-1">🥐</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Kruvasan</h3>
+                        <p class="card-description">Taze tereyağlı kruvasan</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺95</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="food">
+                    <div class="card-image">
+                        <div class="card-placeholder food-2">🍰</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cheesecake</h3>
+                        <p class="card-description">San Sebastian cheesecake</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺135</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-card" data-category="food">
+                    <div class="card-image">
+                        <div class="card-placeholder food-3">🍪</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cookie</h3>
+                        <p class="card-description">Çikolata parçalı kurabiye</p>
+                        <div class="card-footer">
+                            <span class="card-price">₺70</span>
+                            <div class="card-qty">
+                                <button class="qty-minus">-</button>
+                                <span class="qty-value">1</span>
+                                <button class="qty-plus">+</button>
+                            </div>
+                            <button class="card-btn">Ekle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Galeri</span>
+                <h2 class="section-title">Kahve Anları</h2>
+                <p class="section-description">Blab'deki özel anlardan kareler</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <div class="gallery-placeholder gal-1">
+                        <span>☕</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>Sabah Kahvesi</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder gal-2">
+                        <span>🎨</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>Latte Art</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder gal-3">
+                        <span>📚</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>Çalışma Molası</span>
+                    </div>
+                </div>
+                <div class="gallery-item tall">
+                    <div class="gallery-placeholder gal-4">
+                        <span>🌿</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>Kahve Çekirdekleri</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder gal-5">
+                        <span>☕</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>Espresso</span>
+                    </div>
+                </div>
+                <div class="gallery-item wide">
+                    <div class="gallery-placeholder gal-6">
+                        <span>🏠</span>
+                    </div>
+                    <div class="gallery-overlay">
+                        <span>Blab Atmosferi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <span class="section-badge">Hakkımızda</span>
+                    <h2 class="section-title">Blab Hikayesi</h2>
+                    <p class="about-text">
+                        Blab, öğrencilerin ihtiyaçlarını anlayan bir kahve mekanıdır.
+                        Okul içinde kaliteli kahve deneyimi sunmak ve öğrencilerin
+                        ders aralarında rahatça vakit geçirebilecekleri bir ortam
+                        yaratmak amacıyla kurulduk.
+                    </p>
+                    <p class="about-text">
+                        Her fincan kahvemiz, özenle seçilmiş çekirdeklerden ve
+                        profesyonel baristalarımız tarafından hazırlanır. Amacımız
+                        sadece kahve satmak değil, unutulmaz anlar yaratmaktır.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🌱</div>
+                            <div class="feature-text">
+                                <h4>Taze Çekirdek</h4>
+                                <p>Her gün taze kavrulmuş çekirdekler</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">💰</div>
+                            <div class="feature-text">
+                                <h4>Öğrenci Dostu</h4>
+                                <p>Uygun fiyatlar ve kampanyalar</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">
+                                <h4>Hızlı Servis</h4>
+                                <p>Ders arasına yetişen hızlı hazırlık</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-placeholder">
+                        <span>☕</span>
+                        <div class="floating-badge">2024'ten beri</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Reviews -->
+            <div class="reviews-section">
+                <h3 class="section-title">💬 Müşteri Yorumları</h3>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Elif Y.</span>
+                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="review-text">Kampüsteki en iyi kahve burası! Latte'si harika, fiyatlar da öğrenci
+                            dostu. Ders arasında mutlaka uğruyorum.</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Mehmet K.</span>
+                            <span class="review-stars">⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="review-text">Espresso'ları mükemmel! Çalışanlar çok ilgili, ortam da çok güzel. 9
+                            kahve al 10. bedava kampanyası harika!</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="review-author">Zeynep A.</span>
+                            <span class="review-stars">⭐⭐⭐⭐</span>
+                        </div>
+                        <p class="review-text">Cheesecake ve kahve ikilisi için en iyi adres. Hızlı servis için
+                            teşekkürler Blab ekibi!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div style="margin-top: 3rem;">
+                <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;">📍 Bizi Bulun</h3>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.5!2d28.9413!3d41.0637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab5e8a3e4b8f1%3A0x6a3e4b8f1a3e4b8f!2ssantralistanbul!5e0!3m2!1str!2str!4v1703000000000!5m2!1str!2str"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <img src="logo.png" alt="Blab" class="footer-logo-img">
+                    </a>
+                    <p class="footer-description">
+                        Okulun en sevilen kahvecisi. Her gün taze kahve,
+                        sıcak atmosfer ve öğrenci dostu fiyatlar.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/blab_santral/" target="_blank" class="social-link"
+                            aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Hızlı Linkler</h4>
+                    <ul>
+                        <li><a href="#hero">Ana Sayfa</a></li>
+                        <li><a href="#menu">Menü</a></li>
+                        <li><a href="#gallery">Galeri</a></li>
+                        <li><a href="#about">Hakkımızda</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>İletişim</h4>
+                    <ul>
+                        <li>📍 santralistanbul Kampüsü</li>
+                        <li>Eski Silahtarağa Elektrik Santralı</li>
+                        <li>Kazım Karabekir Cad. No: 2/13</li>
+                        <li>34060 Eyüpsultan İstanbul</li>
+                        <li>📞 (0212) 311 50 00</li>
+                    </ul>
+                </div>
+                <div class="footer-hours">
+                    <h4>Çalışma Saatleri</h4>
+                    <ul>
+                        <li>Pazartesi - Cuma</li>
+                        <li class="highlight">08:00 - 17:00</li>
+                        <li>Cumartesi - Pazar</li>
+                        <li class="highlight">Kapalı</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Blab Coffee. Tüm hakları saklıdır.</p>
+                <p>Bilgi Bilgisayar Mühendisliği Öğrencileri tarafından geliştirildi</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>🛒 Sepetim</h3>
+                <button class="modal-close" id="closeCart">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Prep Time Estimate -->
+                <div class="prep-time" id="prepTime" style="display: none;">
+                    <span class="prep-time-icon">⏱️</span>
+                    <div class="prep-time-text">
+                        Tahmini hazırlık süresi: <strong id="prepTimeValue">~3 dk</strong>
+                    </div>
+                </div>
+                <div class="cart-items" id="cartItems">
+                    <p class="empty-cart">Sepetiniz boş</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total">
+                    <span>Toplam:</span>
+                    <span id="cartTotal">₺0</span>
+                </div>
+                <button class="btn btn-primary" id="checkoutBtn" disabled>Siparişi Onayla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal order-modal">
+            <div class="modal-header">
+                <h3>✅ Sipariş Onaylandı!</h3>
+                <button class="modal-close" id="closeOrder">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="order-success">
+                    <div class="success-icon">☕</div>
+                    <h4>Siparişiniz alındı!</h4>
+                    <p>Siparişiniz hazırlanıyor. Lütfen Blab'da bekleyiniz.</p>
+                    <div class="order-number">
+                        Sipariş No: <strong id="orderNumber">#0000</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="closeOrderBtn">Tamam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal-overlay" id="celebrationModal">
+        <div class="celebration-confetti" id="confetti"></div>
+        <div class="modal celebration-modal">
+            <div class="celebration-content">
+                <div class="celebration-icon">🎉</div>
+                <h2 class="celebration-title">TEBRİKLER!</h2>
+                <p class="celebration-subtitle">10. Kahven Bizden!</p>
+                <div class="celebration-coffee">☕</div>
+                <p class="celebration-message">
+                    9 kahve topladın, şimdi sıra bizde!<br>
+                    Bedava kahveni kasada göster.
+                </p>
+                <button class="btn btn-primary celebration-btn" id="closeCelebration">
+                    <span>Harika!</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div class="modal-overlay" id="favoritesModal">
+        <div class="modal favorites-modal">
+            <div class="modal-header">
+                <h3>❤️ Favorilerim</h3>
+                <button class="modal-close" id="closeFavorites">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="favoritesList">
+                    <p class="empty-cart">Henüz favori eklemediniz</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal history-modal">
+            <div class="modal-header">
+                <h3>📋 Sipariş Geçmişi</h3>
+                <button class="modal-close" id="closeHistory">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="historyList">
+                    <p class="empty-cart">Henüz sipariş vermediniz</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal (Login/Register/Forgot Password) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal auth-modal">
+            <!-- Login Form -->
+            <div class="auth-form" id="loginForm">
+                <div class="modal-header">
+                    <h3>👤 Giriş Yap</h3>
+                    <button class="modal-close" id="closeAuth">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="loginEmail">E-posta</label>
+                        <input type="email" id="loginEmail" placeholder="ornek@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Şifre</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <div class="auth-error" id="loginError"></div>
+                    <button class="btn btn-primary auth-submit" id="loginSubmit">Giriş Yap</button>
+                    <div class="auth-links">
+                        <a href="#" id="showForgot">Şifremi Unuttum</a>
+                        <span>•</span>
+                        <a href="#" id="showRegister">Üye Ol</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm" style="display: none;">
+                <div class="modal-header">
+                    <h3>📝 Üye Ol</h3>
+                    <button class="modal-close" id="closeAuth2">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="registerName">Ad Soyad</label>
+                        <input type="text" id="registerName" placeholder="Adınız Soyadınız" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">E-posta</label>
+                        <input type="email" id="registerEmail" placeholder="ornek@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Şifre</label>
+                        <input type="password" id="registerPassword" placeholder="En az 8 karakter + özel karakter"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirm">Şifre Tekrar</label>
+                        <input type="password" id="registerConfirm" placeholder="Şifrenizi tekrar girin" required>
+                    </div>
+                    <div class="auth-error" id="registerError"></div>
+                    <button class="btn btn-primary auth-submit" id="registerSubmit">Üye Ol</button>
+                    <div class="auth-links">
+                        <a href="#" id="showLogin">Zaten üyeyim, Giriş Yap</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div class="auth-form" id="forgotForm" style="display: none;">
+                <div class="modal-header">
+                    <h3>🔐 Şifremi Unuttum</h3>
+                    <button class="modal-close" id="closeAuth3">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="forgot-info">E-posta adresinizi girin, size şifre sıfırlama bağlantısı gönderelim.</p>
+                    <div class="form-group">
+                        <label for="forgotEmail">E-posta</label>
+                        <input type="email" id="forgotEmail" placeholder="ornek@email.com" required>
+                    </div>
+                    <div class="auth-error" id="forgotError"></div>
+                    <div class="auth-success" id="forgotSuccess"></div>
+                    <button class="btn btn-primary auth-submit" id="forgotSubmit">Sıfırlama Linki Gönder</button>
+                    <div class="auth-links">
+                        <a href="#" id="backToLogin">← Giriş sayfasına dön</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logged In State -->
+            <div class="auth-form" id="userProfile" style="display: none;">
+                <div class="modal-header">
+                    <h3>👤 Hesabım</h3>
+                    <button class="modal-close" id="closeAuth4">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="user-info">
+                        <div class="user-avatar">👤</div>
+                        <div class="user-details">
+                            <h4 id="userName">Kullanıcı Adı</h4>
+                            <p id="userEmail">email@example.com</p>
+                        </div>
+                    </div>
+                    <div class="user-stats">
+                        <div class="user-stat">
+                            <span class="stat-number" id="userOrders">0</span>
+                            <span>Sipariş</span>
+                        </div>
+                        <div class="user-stat">
+                            <span class="stat-number" id="userStamps">0</span>
+                            <span>Damga</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" id="logoutBtn">Çıkış Yap</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
