@@ -1383,7 +1383,8 @@ updateUserButtonState();
 // Open auth modal
 userBtn.addEventListener('click', () => {
     authModal.classList.add('active');
-    if (currentUser) {
+    // Use Supabase user instead of localStorage
+    if (window.currentSupabaseUser) {
         showUserProfile();
     } else {
         showLoginForm();
@@ -1503,10 +1504,11 @@ loginSubmit.addEventListener('click', async () => {
     loginSubmit.textContent = 'Giriş yapılıyor...';
 
     try {
-        const { user, session } = await supabaseSignIn(email, password);
+        const data = await supabaseSignIn(email, password);
 
-        if (session) {
-            window.currentSupabaseUser = user;
+        if (data && data.session) {
+            window.currentSupabaseUser = data.user;
+            console.log('✅ Login successful:', data.user.email);
             showUserProfile();
             loginEmail.value = '';
             loginPassword.value = '';
