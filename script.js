@@ -410,18 +410,18 @@ let currentLang = localStorage.getItem('blabLang') || 'tr';
 const translations = {
     tr: {
         // Hero
-        heroBadge: '☕ Okul Kahveciniz',
+        heroBadge: 'Okul Kahveciniz',
         heroTitle1: 'Kahvenin',
         heroTitle2: 'En Taze Hali',
         heroDesc: 'Okul içinde profesyonelce hazırlanmış kahve deneyimi. Her yudumda kalite, her fincanda mutluluk.',
         menuBtn: 'Menüyü Keşfet',
         aboutBtn: 'Bizi Tanıyın',
         // Loyalty
-        loyaltyBadge: '🎁 Kampanya',
+        loyaltyBadge: 'Kampanya',
         loyaltyTitle: '9 Kahve Al, 10. Bizden!',
         loyaltyDesc: 'Her kahve alışverişinde damga kazan, 9 damga topla ve 10. kahven bizden olsun!',
         loyaltyProgress: ' / 9 kahve toplandı - Hediye kazandın!',
-        loyaltyInfo: '💡 Kahve siparişi verdiğinizde otomatik olarak damga kazanırsınız!',
+        loyaltyInfo: 'Kahve siparişi verdiğinizde otomatik olarak damga kazanırsınız.',
         // Menu
         menuSectionBadge: 'Menümüz',
         menuSectionTitle: 'Lezzetli Seçenekler',
@@ -436,10 +436,10 @@ const translations = {
         // About
         aboutBadge: 'Hakkımızda',
         aboutTitle: 'Blab Hikayesi',
-        reviewsTitle: '💬 Müşteri Yorumları',
-        mapTitle: '📍 Bizi Bulun',
+        reviewsTitle: 'Müşteri Yorumları',
+        mapTitle: 'Bizi Bulun',
         // Cart
-        cartTitle: '🛒 Sepetim',
+        cartTitle: 'Sepetim',
         cartEmpty: 'Sepetiniz boş',
         cartTotal: 'Toplam:',
         checkoutBtn: 'Siparişi Onayla',
@@ -455,9 +455,9 @@ const translations = {
         footerHours: 'Çalışma Saatleri',
         orderHistory: 'Sipariş Geçmişi',
         // Modals
-        favoritesTitle: '❤️ Favorilerim',
+        favoritesTitle: 'Favorilerim',
         favoritesEmpty: 'Henüz favori eklemediniz',
-        historyTitle: '📋 Sipariş Geçmişi',
+        historyTitle: 'Sipariş Geçmişi',
         historyEmpty: 'Henüz sipariş vermediniz',
         searchPlaceholder: 'Ürün ara...',
         addToCart: 'Sepete Ekle',
@@ -465,18 +465,18 @@ const translations = {
     },
     en: {
         // Hero
-        heroBadge: '☕ Your School Coffee Shop',
+        heroBadge: 'Your School Coffee Shop',
         heroTitle1: 'The Freshest',
         heroTitle2: 'Coffee Experience',
         heroDesc: 'Professionally crafted coffee experience on campus. Quality in every sip, happiness in every cup.',
         menuBtn: 'Explore Menu',
         aboutBtn: 'About Us',
         // Loyalty
-        loyaltyBadge: '🎁 Campaign',
+        loyaltyBadge: 'Campaign',
         loyaltyTitle: 'Buy 9 Coffees, Get 10th Free!',
         loyaltyDesc: 'Earn a stamp with every coffee purchase, collect 9 stamps and get your 10th coffee free!',
         loyaltyProgress: ' / 9 coffees collected - Earned a gift!',
-        loyaltyInfo: '💡 You automatically earn stamps when you order coffee!',
+        loyaltyInfo: 'You automatically earn stamps when you order coffee.',
         // Menu
         menuSectionBadge: 'Our Menu',
         menuSectionTitle: 'Delicious Options',
@@ -491,10 +491,10 @@ const translations = {
         // About
         aboutBadge: 'About',
         aboutTitle: 'Blab Story',
-        reviewsTitle: '💬 Customer Reviews',
-        mapTitle: '📍 Find Us',
+        reviewsTitle: 'Customer Reviews',
+        mapTitle: 'Find Us',
         // Cart
-        cartTitle: '🛒 My Cart',
+        cartTitle: 'My Cart',
         cartEmpty: 'Your cart is empty',
         cartTotal: 'Total:',
         checkoutBtn: 'Confirm Order',
@@ -510,9 +510,9 @@ const translations = {
         footerHours: 'Working Hours',
         orderHistory: 'Order History',
         // Modals
-        favoritesTitle: '❤️ My Favorites',
+        favoritesTitle: 'My Favorites',
         favoritesEmpty: 'No favorites yet',
-        historyTitle: '📋 Order History',
+        historyTitle: 'Order History',
         historyEmpty: 'No orders yet',
         searchPlaceholder: 'Search products...',
         addToCart: 'Add to Cart',
