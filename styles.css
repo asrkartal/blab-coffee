@@ -442,6 +442,17 @@ section {
     overflow: hidden
 }
 
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease
+}
+
+.menu-card:hover .card-img {
+    transform: scale(1.1)
+}
+
 .card-placeholder {
     width: 100%;
     height: 100%;
@@ -647,14 +658,16 @@ section {
     grid-column: span 2
 }
 
-.gallery-placeholder {
+.gallery-placeholder,
+.gallery-img {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    transition: .5s
+    transition: .5s;
+    object-fit: cover
 }
 
 .gal-1 {
@@ -798,8 +811,8 @@ section {
 
 .floating-badge {
     position: absolute;
-    bottom: -20px;
-    right: -20px;
+    top: 20px;
+    right: 20px;
     padding: 1rem 2rem;
     background: linear-gradient(135deg, #8B4513, #D4A574);
     border-radius: 12px;
@@ -1114,9 +1127,11 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgba(212, 165, 116, 0.5);
     transition: all 0.3s ease;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 .stamp span {

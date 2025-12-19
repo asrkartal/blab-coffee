@@ -753,8 +753,9 @@ function translateProducts(lang) {
         }
     });
 
+
     // Map title
-    const mapTitle = document.querySelector('.map-container')?.previousElementSibling?.querySelector('.section-title');
+    const mapTitle = document.querySelector('[data-translate="findUs"]');
     if (mapTitle) {
         mapTitle.textContent = lang === 'en' ? '📍 Find Us' : '📍 Bizi Bulun';
     }
