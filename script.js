@@ -237,7 +237,7 @@ function removeItem(index) {
 }
 
 // Checkout
-checkoutBtn.addEventListener('click', () => {
+checkoutBtn.addEventListener('click', async () => {
     if (cart.length === 0) return;
 
     // Count coffee items in cart (only coffee category counts for stamps)
@@ -253,7 +253,33 @@ checkoutBtn.addEventListener('click', () => {
 
     // Generate random order number
     const num = Math.floor(1000 + Math.random() * 9000);
-    orderNumber.textContent = '#' + num;
+    const orderNum = '#' + num;
+    orderNumber.textContent = orderNum;
+
+    // Calculate total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+    // Save to local history
+    if (typeof saveOrderToHistory === 'function') {
+        saveOrderToHistory(orderNum, [...cart], total);
+    }
+
+    // Save to Supabase database if user is logged in
+    console.log('📦 Order placed:', orderNum);
+    console.log('👤 User:', window.currentSupabaseUser);
+
+    if (window.saveOrderToDatabase && window.currentSupabaseUser) {
+        console.log('💾 Saving to Supabase...');
+        try {
+            await saveOrderToDatabase({
+                orderNum: orderNum,
+                items: [...cart],
+                total: total
+            });
+        } catch (err) {
+            console.error('Error saving order:', err);
+        }
+    }
 
     // Clear cart
     cart = [];
@@ -1279,11 +1305,30 @@ updateCart = function () {
 
 // Update checkout to save history
 const originalCheckoutHandler = checkoutBtn.onclick;
-checkoutBtn.addEventListener('click', function () {
+checkoutBtn.addEventListener('click', async function () {
     if (cart.length > 0) {
         const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
         const orderNum = '#' + Math.floor(1000 + Math.random() * 9000);
+
+        // Save to local history
         saveOrderToHistory(orderNum, [...cart], total);
+
+        // Debug logs
+        console.log('📦 Order placed:', orderNum);
+        console.log('🔑 saveOrderToDatabase exists:', typeof window.saveOrderToDatabase);
+        console.log('👤 currentSupabaseUser:', window.currentSupabaseUser);
+
+        // Save to Supabase database if user is logged in
+        if (window.saveOrderToDatabase && window.currentSupabaseUser) {
+            console.log('💾 Saving to Supabase...');
+            await saveOrderToDatabase({
+                orderNum: orderNum,
+                items: [...cart],
+                total: total
+            });
+        } else {
+            console.log('⚠️ Not saving to database - user not logged in or function not available');
+        }
     }
 });
 
@@ -1412,11 +1457,15 @@ function showUserProfile() {
     forgotForm.style.display = 'none';
     userProfile.style.display = 'block';
 
-    // Update profile info
-    document.getElementById('userName').textContent = currentUser.name;
-    document.getElementById('userEmail').textContent = currentUser.email;
-    document.getElementById('userOrders').textContent = currentUser.orders || 0;
-    document.getElementById('userStamps').textContent = stamps || 0;
+    // Update profile info from Supabase user
+    const user = window.currentSupabaseUser;
+    if (user) {
+        const userName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Kullanıcı';
+        document.getElementById('userName').textContent = userName;
+        document.getElementById('userEmail').textContent = user.email || '';
+        document.getElementById('userOrders').textContent = 0; // TODO: Get from database
+        document.getElementById('userStamps').textContent = stamps || 0;
+    }
 }
 
 function clearErrors() {

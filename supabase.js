@@ -149,3 +149,67 @@ async function checkAuthState() {
 
 // Run on page load
 checkAuthState();
+
+// ===========================
+// SUPABASE DATABASE FUNCTIONS
+// ===========================
+
+// Save Order to Database
+window.saveOrderToDatabase = async function (orderData) {
+    if (!supabaseClient) {
+        console.error('Supabase client not initialized');
+        return null;
+    }
+
+    const user = window.currentSupabaseUser;
+    if (!user) {
+        console.log('User not logged in, order saved locally only');
+        return null;
+    }
+
+    const { data, error } = await supabaseClient
+        .from('orders')
+        .insert([{
+            user_id: user.id,
+            order_number: orderData.orderNum,
+            items: JSON.stringify(orderData.items),
+            total: orderData.total,
+            status: 'pending'
+        }])
+        .select();
+
+    if (error) {
+        console.error('Error saving order:', error);
+        return null;
+    }
+
+    console.log('✅ Order saved to database:', data);
+    return data;
+};
+
+// Get User Orders from Database
+window.getUserOrders = async function () {
+    if (!supabaseClient) {
+        console.error('Supabase client not initialized');
+        return [];
+    }
+
+    const user = window.currentSupabaseUser;
+    if (!user) {
+        console.log('User not logged in');
+        return [];
+    }
+
+    const { data, error } = await supabaseClient
+        .from('orders')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error('Error fetching orders:', error);
+        return [];
+    }
+
+    return data || [];
+};
