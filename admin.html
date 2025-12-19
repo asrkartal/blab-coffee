@@ -172,6 +172,17 @@
             color: #4CAF50;
         }
 
+        .status-btn {
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .status-btn:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
         .loading {
             text-align: center;
             padding: 3rem;
@@ -311,7 +322,7 @@
                             <th>Tarih</th>
                             <th>Ürünler</th>
                             <th>Tutar</th>
-                            <th>Durum</th>
+                            <th>Durum (tıkla değiştir)</th>
                         </tr>
                     </thead>
                     <tbody id="ordersTableBody">
@@ -436,16 +447,42 @@
                     items = parsed.map(i => `${i.name} x${i.qty}`).join(', ');
                 } catch (e) { }
 
+                const nextStatus = order.status === 'pending' ? 'completed' : 'pending';
+                const statusText = order.status === 'pending' ? '⏳ Bekliyor' : '✅ Tamamlandı';
+
                 return `
                     <tr>
                         <td><strong>${order.order_number}</strong></td>
                         <td>${date}</td>
                         <td>${items}</td>
                         <td><strong>₺${order.total}</strong></td>
-                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                        <td>
+                            <button class="status-badge status-btn status-${order.status}" 
+                                    onclick="updateOrderStatus('${order.id}', '${nextStatus}')">
+                                ${statusText}
+                            </button>
+                        </td>
                     </tr>
                 `;
             }).join('');
+        }
+
+        // Update order status
+        async function updateOrderStatus(orderId, newStatus) {
+            const { error } = await supabaseClient
+                .from('orders')
+                .update({ status: newStatus })
+                .eq('id', orderId);
+
+            if (error) {
+                console.error('Error updating status:', error);
+                alert('Durum güncellenemedi!');
+                return;
+            }
+
+            console.log('✅ Order status updated to:', newStatus);
+            // Reload dashboard
+            loadDashboard();
         }
 
         // Load on page load
