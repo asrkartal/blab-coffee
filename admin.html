@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blab Admin | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --bg2: #141414;
+            --text: #FFFFFF;
+            --muted: #888;
+            --primary: #8B4513;
+            --secondary: #D4A574;
+            --success: #4CAF50;
+            --danger: #ff4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admin-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .admin-nav a {
+            color: var(--muted);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .admin-nav a:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.15), rgba(255, 255, 255, 0.05));
+            border: 1px solid rgba(139, 69, 19, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .stat-card h3 {
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .stat-card .stat-change {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .stat-change.positive {
+            color: var(--success);
+        }
+
+        .stat-change.negative {
+            color: var(--danger);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .orders-table {
+            background: var(--bg2);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .orders-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table th,
+        .orders-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .orders-table th {
+            background: rgba(139, 69, 19, 0.2);
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .orders-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .status-completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted);
+        }
+
+        .login-required {
+            text-align: center;
+            padding: 4rem;
+        }
+
+        .login-required h2 {
+            margin-bottom: 1rem;
+        }
+
+        .login-required a {
+            color: var(--secondary);
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .daily-chart {
+            background: var(--bg2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            height: 200px;
+            padding-top: 1rem;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--primary), var(--secondary));
+            border-radius: 4px 4px 0 0;
+            min-height: 10px;
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .chart-bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--secondary);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>☕ Blab Admin</h1>
+            <nav class="admin-nav">
+                <a href="index.html">← Siteye Dön</a>
+                <button class="refresh-btn" onclick="loadDashboard()">🔄 Yenile</button>
+            </nav>
+        </header>
+
+        <div id="loginRequired" class="login-required" style="display: none;">
+            <h2>🔐 Admin Girişi Gerekli</h2>
+            <p>Bu sayfayı görüntülemek için <a href="index.html">giriş yapmalısınız</a>.</p>
+        </div>
+
+        <div id="dashboard" style="display: none;">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>📅 Bugünün Kazancı</h3>
+                    <div class="stat-value" id="todayEarnings">₺0</div>
+                    <div class="stat-change positive" id="todayOrders">0 sipariş</div>
+                </div>
+                <div class="stat-card">
+                    <h3>📆 Bu Hafta</h3>
+                    <div class="stat-value" id="weekEarnings">₺0</div>
+                    <div class="stat-change" id="weekOrders">0 sipariş</div>
+                </div>
+                <div class="stat-card">
+                    <h3>📊 Toplam Kazanç</h3>
+                    <div class="stat-value" id="totalEarnings">₺0</div>
+                    <div class="stat-change" id="totalOrders">0 sipariş</div>
+                </div>
+                <div class="stat-card">
+                    <h3>👥 Toplam Müşteri</h3>
+                    <div class="stat-value" id="totalCustomers">0</div>
+                </div>
+            </div>
+
+            <!-- Daily Chart -->
+            <h2 class="section-title">📈 Son 7 Gün</h2>
+            <div class="daily-chart">
+                <div class="chart-bars" id="chartBars">
+                    <div class="loading">Yükleniyor...</div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <h2 class="section-title">📋 Son Siparişler</h2>
+            <div class="orders-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sipariş No</th>
+                            <th>Tarih</th>
+                            <th>Ürünler</th>
+                            <th>Tutar</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr>
+                            <td colspan="5" class="loading">Yükleniyor...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://yqrdpsecootesmqhkcyl.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxcmRwc2Vjb290ZXNtcWhrY3lsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwODQ2MDksImV4cCI6MjA4MTY2MDYwOX0.EJ2RK94I4R0t897IMf7ZpTDD36-2kcKmlIJL0pBCZK8';
+
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Admin email (değiştir!)
+        const ADMIN_EMAIL = 'asrkartal2901@gmail.com';
+
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+
+            if (!session || session.user.email !== ADMIN_EMAIL) {
+                document.getElementById('loginRequired').style.display = 'block';
+                document.getElementById('dashboard').style.display = 'none';
+                return false;
+            }
+
+            document.getElementById('loginRequired').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            return true;
+        }
+
+        async function loadDashboard() {
+            const isAdmin = await checkAuth();
+            if (!isAdmin) return;
+
+            // Get all orders
+            const { data: orders, error } = await supabaseClient
+                .from('orders')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching orders:', error);
+                return;
+            }
+
+            // Calculate stats
+            const today = new Date().toDateString();
+            const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+            const todayOrders = orders.filter(o => new Date(o.created_at).toDateString() === today);
+            const weekOrders = orders.filter(o => new Date(o.created_at) >= weekAgo);
+
+            const todayTotal = todayOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+            const weekTotal = weekOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+            const totalTotal = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+
+            // Unique customers
+            const uniqueCustomers = [...new Set(orders.map(o => o.user_id))].length;
+
+            // Update UI
+            document.getElementById('todayEarnings').textContent = '₺' + todayTotal;
+            document.getElementById('todayOrders').textContent = todayOrders.length + ' sipariş';
+            document.getElementById('weekEarnings').textContent = '₺' + weekTotal;
+            document.getElementById('weekOrders').textContent = weekOrders.length + ' sipariş';
+            document.getElementById('totalEarnings').textContent = '₺' + totalTotal;
+            document.getElementById('totalOrders').textContent = orders.length + ' sipariş';
+            document.getElementById('totalCustomers').textContent = uniqueCustomers;
+
+            // Build chart
+            buildChart(orders);
+
+            // Build orders table
+            buildOrdersTable(orders.slice(0, 10));
+        }
+
+        function buildChart(orders) {
+            const chartBars = document.getElementById('chartBars');
+            const days = [];
+
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+                const dateStr = date.toDateString();
+                const dayOrders = orders.filter(o => new Date(o.created_at).toDateString() === dateStr);
+                const total = dayOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+                days.push({
+                    label: date.toLocaleDateString('tr-TR', { weekday: 'short' }),
+                    total: total
+                });
+            }
+
+            const maxTotal = Math.max(...days.map(d => d.total), 1);
+
+            chartBars.innerHTML = days.map(day => `
+                <div class="chart-bar" style="height: ${(day.total / maxTotal) * 100}%">
+                    <span class="chart-bar-value">₺${day.total}</span>
+                    <span class="chart-bar-label">${day.label}</span>
+                </div>
+            `).join('');
+        }
+
+        function buildOrdersTable(orders) {
+            const tbody = document.getElementById('ordersTableBody');
+
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="loading">Henüz sipariş yok</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = orders.map(order => {
+                const date = new Date(order.created_at).toLocaleString('tr-TR');
+                let items = 'N/A';
+                try {
+                    const parsed = JSON.parse(order.items);
+                    items = parsed.map(i => `${i.name} x${i.qty}`).join(', ');
+                } catch (e) { }
+
+                return `
+                    <tr>
+                        <td><strong>${order.order_number}</strong></td>
+                        <td>${date}</td>
+                        <td>${items}</td>
+                        <td><strong>₺${order.total}</strong></td>
+                        <td><span class="status-badge status-${order.status}">${order.status}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Load on page load
+        loadDashboard();
+    </script>
+</body>
+
+</html>
