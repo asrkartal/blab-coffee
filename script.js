@@ -1440,8 +1440,8 @@ function showSuccess(element, message) {
     element.classList.add('show');
 }
 
-// Login handler
-loginSubmit.addEventListener('click', () => {
+// Login handler - SUPABASE
+loginSubmit.addEventListener('click', async () => {
     const email = loginEmail.value.trim();
     const password = loginPassword.value;
 
@@ -1450,22 +1450,29 @@ loginSubmit.addEventListener('click', () => {
         return;
     }
 
-    const user = users.find(u => u.email === email && u.password === password);
+    loginSubmit.disabled = true;
+    loginSubmit.textContent = 'Giriş yapılıyor...';
 
-    if (user) {
-        currentUser = user;
-        localStorage.setItem('blabUser', JSON.stringify(user));
-        updateUserButtonState();
-        showUserProfile();
-        loginEmail.value = '';
-        loginPassword.value = '';
-    } else {
-        showError(loginError, 'E-posta veya şifre hatalı.');
+    try {
+        const { user, session } = await supabaseSignIn(email, password);
+
+        if (session) {
+            window.currentSupabaseUser = user;
+            showUserProfile();
+            loginEmail.value = '';
+            loginPassword.value = '';
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        showError(loginError, error.message || 'E-posta veya şifre hatalı.');
+    } finally {
+        loginSubmit.disabled = false;
+        loginSubmit.textContent = 'Giriş Yap';
     }
 });
 
-// Register handler
-registerSubmit.addEventListener('click', () => {
+// Register handler - SUPABASE
+registerSubmit.addEventListener('click', async () => {
     const name = registerName.value.trim();
     const email = registerEmail.value.trim();
     const password = registerPassword.value;
@@ -1511,36 +1518,31 @@ registerSubmit.addEventListener('click', () => {
         return;
     }
 
-    if (users.find(u => u.email === email)) {
-        showError(registerError, 'Bu e-posta zaten kayıtlı.');
-        return;
+    registerSubmit.disabled = true;
+    registerSubmit.textContent = 'Kayıt yapılıyor...';
+
+    try {
+        const { user } = await supabaseSignUp(email, password, name);
+
+        if (user) {
+            showSuccess(registerError, '✅ Kayıt başarılı! Lütfen e-postanızı onaylayın.');
+            // Clear form
+            registerName.value = '';
+            registerEmail.value = '';
+            registerPassword.value = '';
+            registerConfirm.value = '';
+        }
+    } catch (error) {
+        console.error('Register error:', error);
+        showError(registerError, error.message || 'Kayıt sırasında bir hata oluştu.');
+    } finally {
+        registerSubmit.disabled = false;
+        registerSubmit.textContent = 'Üye Ol';
     }
-
-    const newUser = {
-        name,
-        email,
-        password,
-        orders: 0,
-        createdAt: new Date().toISOString()
-    };
-
-    users.push(newUser);
-    localStorage.setItem('blabUsers', JSON.stringify(users));
-
-    currentUser = newUser;
-    localStorage.setItem('blabUser', JSON.stringify(newUser));
-    updateUserButtonState();
-    showUserProfile();
-
-    // Clear form
-    registerName.value = '';
-    registerEmail.value = '';
-    registerPassword.value = '';
-    registerConfirm.value = '';
 });
 
-// Forgot password handler
-forgotSubmit.addEventListener('click', () => {
+// Forgot password handler - SUPABASE (REAL EMAIL!)
+forgotSubmit.addEventListener('click', async () => {
     const email = forgotEmail.value.trim();
 
     if (!email) {
@@ -1548,22 +1550,31 @@ forgotSubmit.addEventListener('click', () => {
         return;
     }
 
-    const user = users.find(u => u.email === email);
+    forgotSubmit.disabled = true;
+    forgotSubmit.textContent = 'Gönderiliyor...';
 
-    if (user) {
+    try {
+        await supabaseResetPassword(email);
         showSuccess(forgotSuccess, '✅ Şifre sıfırlama linki e-posta adresinize gönderildi!');
         forgotEmail.value = '';
-    } else {
-        showError(forgotError, 'Bu e-posta adresi kayıtlı değil.');
+    } catch (error) {
+        console.error('Reset password error:', error);
+        showError(forgotError, error.message || 'Bir hata oluştu.');
+    } finally {
+        forgotSubmit.disabled = false;
+        forgotSubmit.textContent = 'Sıfırlama Linki Gönder';
     }
 });
 
-// Logout handler
-logoutBtn.addEventListener('click', () => {
-    currentUser = null;
-    localStorage.removeItem('blabUser');
-    updateUserButtonState();
-    authModal.classList.remove('active');
+// Logout handler - SUPABASE
+logoutBtn.addEventListener('click', async () => {
+    try {
+        await supabaseSignOut();
+        window.currentSupabaseUser = null;
+        authModal.classList.remove('active');
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
 });
 
 // Update user button appearance
