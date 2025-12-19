@@ -1303,35 +1303,6 @@ updateCart = function () {
     updatePrepTime();
 };
 
-// Update checkout to save history
-const originalCheckoutHandler = checkoutBtn.onclick;
-checkoutBtn.addEventListener('click', async function () {
-    if (cart.length > 0) {
-        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-        const orderNum = '#' + Math.floor(1000 + Math.random() * 9000);
-
-        // Save to local history
-        saveOrderToHistory(orderNum, [...cart], total);
-
-        // Debug logs
-        console.log('📦 Order placed:', orderNum);
-        console.log('🔑 saveOrderToDatabase exists:', typeof window.saveOrderToDatabase);
-        console.log('👤 currentSupabaseUser:', window.currentSupabaseUser);
-
-        // Save to Supabase database if user is logged in
-        if (window.saveOrderToDatabase && window.currentSupabaseUser) {
-            console.log('💾 Saving to Supabase...');
-            await saveOrderToDatabase({
-                orderNum: orderNum,
-                items: [...cart],
-                total: total
-            });
-        } else {
-            console.log('⚠️ Not saving to database - user not logged in or function not available');
-        }
-    }
-});
-
 // ===========================
 // USER AUTHENTICATION SYSTEM
 // ===========================
