@@ -40,10 +40,5 @@ A modern, responsive web application for a school coffee shop. Built with vanill
 
 🔗 [https://asrkartal.github.io/blab-coffee](https://asrkartal.github.io/blab-coffee)
 
-## License
-
-MIT License
-
----
 
 Developed by [@asrkartal](https://github.com/asrkartal)
