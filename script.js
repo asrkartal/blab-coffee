@@ -1380,11 +1380,14 @@ let users = JSON.parse(localStorage.getItem('blabUsers')) || [];
 // Initialize user state
 updateUserButtonState();
 
-// Open auth modal
-userBtn.addEventListener('click', () => {
+// Open auth modal - check Supabase session directly
+userBtn.addEventListener('click', async () => {
     authModal.classList.add('active');
-    // Use Supabase user instead of localStorage
-    if (window.currentSupabaseUser) {
+
+    // Check Supabase session directly
+    const session = await getSession();
+    if (session && session.user) {
+        window.currentSupabaseUser = session.user;
         showUserProfile();
     } else {
         showLoginForm();
